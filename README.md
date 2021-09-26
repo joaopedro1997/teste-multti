@@ -8,7 +8,7 @@
 - [phpmyadmin](https://www.phpmyadmin.net/) na porta **8080**.
 
 ### Diretórios do projeto
-- **[docker-compose](https://github.com/joaopedro1997/teste-multti/tree/main/docker-compose)**: contém arquivos de configuração do **nginx** e configurações e persistência do **mysql**.
+- **[docker-compose](https://github.com/joaopedro1997/teste-multti/tree/master/docker-compose)**: contém arquivos de configuração do **nginx** e configurações e persistência do **mysql**.
 
 ## Como executar o projeto?
 
@@ -26,7 +26,7 @@ git clone https://github.com/joaopedro1997/teste-multti.git
 
 O arquivo `.env.example` possuem dados genéricos para configuração da aplicação. Faça uma copia do `.env.example` e renomeie para `.env`.
 
-No arquivo **[docker-composer.yml](https://github.com/joaopedro1997/teste-multti/blob/main/docker-compose.yml)**,  altere em args, o `user`, de joaop para seu username do linux.
+No arquivo **[docker-composer.yml](https://github.com/joaopedro1997/teste-multti/blob/master/docker-compose.yml)**,  altere em args, o `user`, de joaop para seu username do linux.
 
 Execute os contêineres do docker:
 ```
