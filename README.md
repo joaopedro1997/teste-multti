@@ -1,64 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Desafio Multti
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descrição do **[Docker compose](https://docs.docker.com/compose/)**
 
-## About Laravel
+- php `v8.61.0`.
+- servidor [nginx](https://www.nginx.com/) rodando nas portas **8000**.
+- [mysql](https://www.mysql.com/) na porta **3306**.
+- [phpmyadmin](https://www.phpmyadmin.net/) na porta **8080**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Diretórios do projeto
+- **[docker-compose](https://github.com/joaopedro1997/teste-multti/tree/main/docker-compose)**: contém arquivos de configuração do **nginx** e configurações e persistência do **mysql**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Como executar o projeto?
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Pré-requisitos
+* git
+* docker
+* docker-compose
 
-## Learning Laravel
+### Executando o projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Clone o projeto:
+```
+git clone https://github.com/joaopedro1997/teste-multti.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O arquivo `.env.example` possuem dados genéricos para configuração da aplicação. Faça uma copia do `.env.example` e renomeie para `.env`.
 
-## Laravel Sponsors
+No arquivo **[docker-composer.yml](https://github.com/joaopedro1997/teste-multti/blob/main/docker-compose.yml)**,  altere em args, o `user`, de joaop para seu username do linux.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Execute os contêineres do docker:
+```
+docker-compose up -d
+```
 
-### Premium Partners
+Entre no contêiner do PHP:
+```
+docker exec -it teste-multti-app bash
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+Obs: O comando anterior te levará direto para o WORKDIR do contêiner: /var/www/.
 
-## Contributing
+Dentro do contêiner, instale as dependências:
+```
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Gere o APP_KEY executando:
+```
+php artisan key:generate
+```
 
-## Code of Conduct
+Rode o comando :
+```
+php artisan optimize
+```
+## Sobre o autor
+> [João Pedro Amaral Dias](https://www.linkedin.com/in/jo%C3%A3o-pedro-amaral-dias/)
+> 
+> [joaopedrodiasamaral@gmail.com](mailto:joaopedrodiasamaral@gmail.com)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### ROTAS
 
-## Security Vulnerabilities
+version:
+```
+GET:
+http://localhost:8000/api
+```
+index:
+```
+GET:
+http://localhost:8000/api/multti
+```
+show:
+```
+GET:
+http://localhost:8000/api/multti/1
+```
+post:
+```
+POST:
+http://localhost:8000/api/multti
+{
+	"nome":"MULTTI",
+	"email":"mullti@test.com",
+	"telefone":"999999999",
+	"senha":"123"
+}
+```
+update:
+```
+PUT:
+http://localhost:8000/api/multti/1
+{
+	"nome":"MULTTI2",
+	"email":"mullti@test.com",
+	"telefone":"999999999",
+	"senha":"123456"
+}
+```
+delete:
+```
+DELETE:
+http://localhost:8000/api/multti/1
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
