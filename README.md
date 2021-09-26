@@ -49,11 +49,16 @@ Gere o APP_KEY executando:
 ```
 php artisan key:generate
 ```
+Rode as migrations :
+```
+php artisan migrate
+```
 
 Rode o comando :
 ```
-php artisan optimize
+php artisan optimize 
 ```
+
 ## Sobre o autor
 > [João Pedro Amaral Dias](https://www.linkedin.com/in/jo%C3%A3o-pedro-amaral-dias/)
 > 
