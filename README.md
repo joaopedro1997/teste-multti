@@ -65,6 +65,7 @@ php artisan optimize
 > [joaopedrodiasamaral@gmail.com](mailto:joaopedrodiasamaral@gmail.com)
 
 ### ROTAS
+`caso utilize o insomnia o arquivo de importação esta na raiz do projeto.`
 
 version:
 ```
