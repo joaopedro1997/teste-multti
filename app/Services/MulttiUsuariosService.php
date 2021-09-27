@@ -6,6 +6,7 @@ use App\Models\MulttiUsuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Error;
 
 class MulttiUsuariosService
 {
@@ -18,8 +19,8 @@ class MulttiUsuariosService
                 'email',
                 'telefone',
             ))
-            ->orderBy('nome', 'asc')
-            ->get();
+                ->orderBy('nome', 'asc')
+                ->get();
         } catch (\Throwable $th) {
             throw ValidationException::withMessages([
                 "error" => $th,
@@ -52,8 +53,8 @@ class MulttiUsuariosService
         } catch (\Throwable $th) {
             throw ValidationException::withMessages([
                 "error" => $th,
-                "message"=>$th->getMessage(),
-                "code"=>$th->getCode(),
+                "message" => $th->getMessage(),
+                "code" => $th->getCode(),
             ]);
         }
     }
@@ -63,26 +64,25 @@ class MulttiUsuariosService
         try {
             $usuario = MulttiUsuarios::find($id);
 
-            if($usuario) {
+            if ($usuario) {
                 $usuario->nome = $request->nome;
                 $usuario->email = $request->email;
                 $usuario->telefone = $request->telefone;
                 $usuario->senha = Hash::make($request->senha);
                 $usuario = $usuario->save();
             }
-            if($usuario){
+            if ($usuario) {
                 return MulttiUsuarios::find($id);
             } else {
-                return $usuario;
+                throw new Error("usuário não encontrado", 404);
             }
-
         } catch (\Throwable $th) {
             throw ValidationException::withMessages([
                 "error" => $th,
                 "message" => $th->getMessage(),
                 "code" => $th->getCode()
             ]);
-        }        
+        }
     }
 
     public function delete(int $id)
