@@ -18,6 +18,7 @@ class MulttiUsuariosService
                 'nome',
                 'email',
                 'telefone',
+                'senha'
             ))
                 ->orderBy('nome', 'asc')
                 ->get();
@@ -49,7 +50,11 @@ class MulttiUsuariosService
     public function show(int $id)
     {
         try {
-            return MulttiUsuarios::find($id);
+            $usuario = MulttiUsuarios::find($id, ['id', 'nome', 'telefone', 'email', 'senha']);
+            if (!$usuario) {
+                throw new Error("usuário não encontrado", 404);
+            }
+            return $usuario;
         } catch (\Throwable $th) {
             throw ValidationException::withMessages([
                 "error" => $th,
@@ -88,7 +93,12 @@ class MulttiUsuariosService
     public function delete(int $id)
     {
         try {
-            return MulttiUsuarios::where('id', $id)->delete();
+            $usuario = MulttiUsuarios::find($id);
+            if (!$usuario) {
+                throw new Error("usuário não encontrado", 404);
+            }
+            $usuario->delete();
+            return $usuario;
         } catch (\Throwable $th) {
             throw ValidationException::withMessages([
                 "error" => $th,

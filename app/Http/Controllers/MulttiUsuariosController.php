@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UsuariosMulttiCollection;
 use App\Http\Requests\StoreMulttiUsuarioRequest;
 use App\Http\Requests\UpdateMulttiUsuariosRequest;
 use App\Http\Resources\UsuarioMulttiResource;
@@ -19,7 +18,7 @@ class MulttiUsuariosController extends Controller
 
     public function index()
     {
-        return new UsuariosMulttiCollection($this->multti_usuarios->index());
+        return UsuarioMulttiResource::collection($this->multti_usuarios->index());
     }
 
     public function store(StoreMulttiUsuarioRequest $request)
@@ -29,7 +28,7 @@ class MulttiUsuariosController extends Controller
 
     public function update(UpdateMulttiUsuariosRequest $request, $id)
     {
-        return new UsuarioMulttiResource($this->multti_usuarios->update($request,$id));
+        return new UsuarioMulttiResource($this->multti_usuarios->update($request, $id));
     }
 
     public function show($id)
@@ -39,7 +38,6 @@ class MulttiUsuariosController extends Controller
 
     public function destroy($id)
     {
-        return response()->json($this->multti_usuarios->delete($id));
+        return new UsuarioMulttiResource($this->multti_usuarios->delete($id));
     }
-
 }
